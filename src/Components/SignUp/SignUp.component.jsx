@@ -42,7 +42,7 @@ handleChange = (e) => {
   const { value, name } = e.target
   this.setState({
     [name]: value
-  }, () => console.log(this.state))
+  })
 }
 
 render () {
