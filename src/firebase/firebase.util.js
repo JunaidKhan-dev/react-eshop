@@ -35,13 +35,13 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
   const userRef = firestore.doc(`users/${userAuth.uid}`) // query to the database to get the snapshot
   const snapShot = await userRef.get() // only using ref object we can use CRUD operation to fing out data exists or not
 
-  if (!snapShot.exits) { // if snapshop means user not exists already on our DB then create a authentication data
+  if (!snapShot.exits) { // if snapshot means user not exists already on our DB then create a authentication data
     // destrcuturing displayName and email from userAuth object we get from success signin authentication
     const { displayName, email } = userAuth
     const createAt = new Date()
 
     try {
-      // string data to the DB
+      // string data to the DB , the document id will be userAuth.uid as we are using that as a reference object
       await userRef.set({
         displayName,
         email,
@@ -55,6 +55,7 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
 
   return userRef // return userRef object for any further CRUD uses
 }
+
 const signInWithGoogle = () => auth.signInWithPopup(provider) // create a signInWithGoogle to use other place
 
 // exporting all required object and functions to use in our app

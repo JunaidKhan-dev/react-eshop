@@ -26,6 +26,7 @@ handleSubmit = async (e) => {
 
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password)
+    // this call the function to create a user from authentication user
     createUserProfileDocument(user, { displayName })
     this.setState({
       displayName: '',
