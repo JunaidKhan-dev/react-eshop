@@ -1,0 +1,5 @@
+const SETCURRENTUSER = 'SET_CURRENT_USER'
+
+export {
+  SETCURRENTUSER
+}
