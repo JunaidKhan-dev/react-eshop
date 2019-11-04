@@ -1,4 +1,4 @@
-import { SETCURRENTUSER } from '../constants/contants'
+import { SETCURRENTUSER } from './user.contants'
 const INITIAL_STATE = {
   currentUser: null
 }
