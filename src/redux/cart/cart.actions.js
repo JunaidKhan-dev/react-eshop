@@ -1,4 +1,4 @@
-import { TOGGLECARTHIDDEN, ADDITEM } from './cart.contants'
+import { TOGGLECARTHIDDEN, ADDITEM, REMOVEITEM } from './cart.contants'
 
 const cartToggleHiddenAction = () => {
   return {
@@ -14,7 +14,15 @@ const addItemAction = (payload) => {
   }
 }
 
+const removeItemAction = (payload) => {
+  return {
+    type: REMOVEITEM,
+    payload: payload
+  }
+}
+
 export {
   cartToggleHiddenAction,
-  addItemAction
+  addItemAction,
+  removeItemAction
 }
