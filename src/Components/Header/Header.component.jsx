@@ -6,6 +6,8 @@ import './Header.style.scss'
 import { auth } from '../../firebase/firebase.util'
 import CartIcon from '../CartIcon/CartIcon.component'
 import CartDropdown from '../CartDropdown/CartDropdown.component'
+import { selectCurrentUser } from '../../redux/user/user.selectors'
+import { selectHidden } from '../../redux/cart/cart.selectors'
 
 const Header = ({ currentUser, hidden }) => {
   return (
@@ -29,10 +31,10 @@ const Header = ({ currentUser, hidden }) => {
   )
 }
 
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => {
+const mapStateToProps = (state) => {
   return {
-    currentUser: currentUser,
-    hidden: hidden
+    currentUser: selectCurrentUser(state),
+    hidden: selectHidden(state)
   }
 }
 
