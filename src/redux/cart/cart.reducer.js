@@ -1,5 +1,10 @@
-import { TOGGLECARTHIDDEN, ADDITEM, REMOVEITEM } from './cart.contants.js'
-import { addItemToCart } from './cart.util'
+import {
+  TOGGLECARTHIDDEN,
+  ADDITEM,
+  CLEARITEM,
+  REMOVEITEM
+} from './cart.contants.js'
+import { addItemToCart, removeItemFromCart } from './cart.util'
 const INITIAL_STATE = {
   hidden: true,
   cartItems: []
@@ -17,7 +22,13 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: addItemToCart(state.cartItems, action.payload)
       }
-    case REMOVEITEM:
+    case REMOVEITEM: {
+      return {
+        ...state,
+        cartItems: removeItemFromCart(state.cartItems, action.payload)
+      }
+    }
+    case CLEARITEM:
       return {
         ...state,
         cartItems: state.cartItems.filter(item => item.id !== action.payload.id)
