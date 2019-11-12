@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import userReducer from './user/user-reducer'
 import cartReducer from './cart/cart.reducer'
 import directoryReducer from './Directory/Directory.reducer'
+import shopReducer from './shop/shop.reducer'
 
 const persistConfig = {
   key: 'root', // at which point u want to start storing the reducer
@@ -15,7 +16,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer,
-  directory: directoryReducer
+  directory: directoryReducer,
+  shop: shopReducer
 })
 
 export default persistReducer(persistConfig, rootReducer) // now this reducer has the capability of persistance localStroage
