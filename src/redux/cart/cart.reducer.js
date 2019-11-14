@@ -2,7 +2,8 @@ import {
   TOGGLECARTHIDDEN,
   ADDITEM,
   CLEARITEM,
-  REMOVEITEM
+  REMOVEITEM,
+  CLEARCART
 } from './cart.contants.js'
 import { addItemToCart, removeItemFromCart } from './cart.util'
 const INITIAL_STATE = {
@@ -32,6 +33,11 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         cartItems: state.cartItems.filter(item => item.id !== action.payload.id)
+      }
+    case CLEARCART:
+      return {
+        ...state,
+        cartItems: []
       }
 
     default:
