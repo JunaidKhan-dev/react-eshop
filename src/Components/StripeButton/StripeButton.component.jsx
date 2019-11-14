@@ -29,9 +29,9 @@ const StripeCheckoutButton = ({ price, clearCartAction, history }) => {
   )
 }
 
-const mapDispatchToState = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     clearCartAction: () => dispatch(clearCartAction())
   }
 }
-export default connect(null, mapDispatchToState)(withRouter(StripeCheckoutButton))
+export default connect(null, mapDispatchToProps)(withRouter(StripeCheckoutButton))

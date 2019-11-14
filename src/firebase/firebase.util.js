@@ -71,6 +71,25 @@ const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
   }) // this will trigger the batch of async
 }
 
+// read collection data from our collections inside firestore and convert collection snapshot toMap
+
+const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollections = collections.docs.map(doc => {
+    const { title, items } = doc.data()
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items
+    }
+  })
+  // converting array of objects to object of object normalize data to map
+  return transformedCollections.reduce((accu, item) => {
+    accu[item.title.toLowerCase()] = item
+    return accu
+  }, {})
+}
+
 const signInWithGoogle = () => auth.signInWithPopup(provider) // create a signInWithGoogle to use other place
 
 // exporting all required object and functions to use in our app
@@ -79,7 +98,8 @@ export {
   firestore,
   signInWithGoogle,
   createUserProfileDocument,
-  addCollectionAndDocuments
+  addCollectionAndDocuments,
+  convertCollectionsSnapshotToMap
 }
 
 export default firebase
