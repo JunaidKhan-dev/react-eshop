@@ -56,6 +56,21 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef // return userRef object for any further CRUD uses
 }
 
+// its a function add a collection with all documents inside
+const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  const collectionRef = firestore.collection(collectionKey)
+
+  const batch = firestore.batch() // batch is the method provided by firestore to run all async call in a single batch
+  objectsToAdd.forEach(object => { // lopping through all docs which are emtpy at the moment
+    const newDocRef = collectionRef.doc() // provide refquery for each doc with id created dynamically
+    batch.set(newDocRef, object) // so we tell its a batch async to set each document with each object we pass in arguments
+  })
+
+  await batch.commit().then(() => {
+    return {} // the return is very important at this point othwerwise data will not added to firestore as this function will end before batch complete
+  }) // this will trigger the batch of async
+}
+
 const signInWithGoogle = () => auth.signInWithPopup(provider) // create a signInWithGoogle to use other place
 
 // exporting all required object and functions to use in our app
@@ -63,7 +78,8 @@ export {
   auth,
   firestore,
   signInWithGoogle,
-  createUserProfileDocument
+  createUserProfileDocument,
+  addCollectionAndDocuments
 }
 
 export default firebase
