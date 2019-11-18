@@ -50,7 +50,7 @@ class App extends React.Component {
         <Header />
         <Switch>
           <ErrorBoundary>
-            <Suspense fallback={<WithSpinner />}>
+            <Suspense fallback={<div>...Loading</div>}>
               <Route exact path='/' component={HomePage} />
               <Route path='/shop' render={(props) => <ShopPage {...props} />} />
               <Route exact path='/checkout' render={(props) => <Checkout {...props} />} />
