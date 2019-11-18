@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import './App.css'
-import HomePage from './Pages/HomePage/Homepage.component'
-import ShopPage from './Pages/ShopPage/ShopPage.components'
 import Header from './Components/Header/Header.component'
-import SignInUp from './Pages/SignInUp/SignInUp.component'
-import Checkout from './Pages/Checkout/Checkout.component'
 import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.util'
 import { connect } from 'react-redux'
 import { setCurrentUser } from './redux/user/user-actions'
 import { selectCurrentUser } from './redux/user/user.selectors'
 import { selectCollectionForPreviews } from './redux/shop/shop.selectors'
+
+// code-splitting via lazy function it will load chunk when needed like homepage JS will only load when needed and import will work like dynamically
+// react router works with lazy automatically, but the async import need to wrap under Suspense component for routing
+const HomePage = lazy(() => import('./Pages/HomePage/Homepage.component'))
+const ShopPage = lazy(() => import('./Pages/ShopPage/ShopPage.components'))
+const SignInUp = lazy(() => import('./Pages/SignInUp/SignInUp.component'))
+const Checkout = lazy(() => import('./Pages/Checkout/Checkout.component'))
+
 class App extends React.Component {
   unsubscribeFromAuth = null
 
@@ -43,10 +47,12 @@ class App extends React.Component {
       <div>
         <Header />
         <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' render={(props) => <ShopPage {...props} />} />
-          <Route exact path='/checkout' render={(props) => <Checkout {...props} />} />
-          <Route exact path='/signin' render={(props) => this.props.currentUser ? <Redirect to='/' /> : <SignInUp {...props} />} />
+          <Suspense fallback={<div>... Loading</div>}>
+            <Route exact path='/' component={HomePage} />
+            <Route path='/shop' render={(props) => <ShopPage {...props} />} />
+            <Route exact path='/checkout' render={(props) => <Checkout {...props} />} />
+            <Route exact path='/signin' render={(props) => this.props.currentUser ? <Redirect to='/' /> : <SignInUp {...props} />} />
+          </Suspense>
         </Switch>
       </div>
     )
