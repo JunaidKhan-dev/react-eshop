@@ -7,6 +7,8 @@ import { connect } from 'react-redux'
 import { setCurrentUser } from './redux/user/user-actions'
 import { selectCurrentUser } from './redux/user/user.selectors'
 import { selectCollectionForPreviews } from './redux/shop/shop.selectors'
+import ErrorBoundary from './Components/ErrorBoundary/ErrorBoundary.component'
+import WithSpinner from './Components/WithSpinner/WithSpinner.component'
 
 // code-splitting via lazy function it will load chunk when needed like homepage JS will only load when needed and import will work like dynamically
 // react router works with lazy automatically, but the async import need to wrap under Suspense component for routing
@@ -47,12 +49,14 @@ class App extends React.Component {
       <div>
         <Header />
         <Switch>
-          <Suspense fallback={<div>... Loading</div>}>
-            <Route exact path='/' component={HomePage} />
-            <Route path='/shop' render={(props) => <ShopPage {...props} />} />
-            <Route exact path='/checkout' render={(props) => <Checkout {...props} />} />
-            <Route exact path='/signin' render={(props) => this.props.currentUser ? <Redirect to='/' /> : <SignInUp {...props} />} />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<WithSpinner />}>
+              <Route exact path='/' component={HomePage} />
+              <Route path='/shop' render={(props) => <ShopPage {...props} />} />
+              <Route exact path='/checkout' render={(props) => <Checkout {...props} />} />
+              <Route exact path='/signin' render={(props) => this.props.currentUser ? <Redirect to='/' /> : <SignInUp {...props} />} />
+            </Suspense>
+          </ErrorBoundary>
         </Switch>
       </div>
     )
