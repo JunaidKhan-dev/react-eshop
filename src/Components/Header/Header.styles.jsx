@@ -2,22 +2,26 @@ import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
 
 const OptionStyled = css`
-  padding: 10px 15px;
+  padding: 7px 10px;
   cursor: pointer;
+  
 `
 
 const HeaderStyled = styled.div`
   height: 70px;
   width: 100%;
+  height: 9vh;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 25px;
 `
 
 const LogoStyled = styled(Link)`
    height: 100%;
    width: 70px;
-   padding: 25px;
+   padding: 14px;
+   align-self:center;
 `
 const OptionsStyled = styled.div`
   width: 50%;
