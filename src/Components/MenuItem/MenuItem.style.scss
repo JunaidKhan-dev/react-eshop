@@ -71,4 +71,13 @@
   .menu-item {
   min-width: 60%;
   }
+  .collection-page .items {
+    display: flex!important;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .collection-item{
+    margin:15px;
+    min-width: 300px;
+  }
 }
