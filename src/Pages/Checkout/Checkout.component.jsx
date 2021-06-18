@@ -34,7 +34,7 @@ const Checkout = ({ cartItems, cartTotal }) => {
         <span>TOTAL: ${cartTotal}</span>
       </div>
       <h4 style={{ color: 'red' }}>Please use the following test credit card for payment* <br />
-      4242 4242 4242 4242 ---- EXP: 01/20 --- CW:123
+      4242 4242 4242 4242 ---- EXP: 01/25 --- CW:123
       </h4>
       <StripeCheckoutButton price={cartTotal} />
     </div>
